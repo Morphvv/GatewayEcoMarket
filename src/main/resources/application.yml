@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9992
 
 spring:
   application:
@@ -23,7 +23,7 @@ spring:
         - id: tienda
           uri: http://localhost:8889
           predicates:
-            - Path=/api/v1/tienda/**
+            - Path=/api/v1/tienda/**,/api/v1/AsignacionPersonal/**,/api/v1/HorarioPersonal/**,/api/v1/HorarioTienda/**,/api/v1/ProductoAsociadoTienda/**,/api/v1/ReporteTienda/**
 
         - id: soporte
           uri: http://localhost:9004
@@ -42,7 +42,7 @@ spring:
             - Path=/api/v1/catalogo/**
 
         - id: backup
-          uri: http://localhost:8086
+          uri: http://localhost:8088
           predicates:
             - Path=/api/v1/backup/**
 
@@ -51,33 +51,155 @@ spring:
           predicates:
             - Path=/api/v1/monitor/**
 
-        # ─── CristobalMerino (requieren server.port en su application.properties) ──
+        # ─── CristobalMerino (puertos reales de sus procesos, ver nota abajo) ──
         - id: proveedor
-          uri: http://localhost:9100
+          uri: http://localhost:8087
           predicates:
             - Path=/api/proveedores/**
 
         - id: pedido
-          uri: http://localhost:9101
+          uri: http://localhost:8084
           predicates:
             - Path=/api/pedidos/**
 
         - id: envio
-          uri: http://localhost:9102
+          uri: http://localhost:8082
           predicates:
             - Path=/api/envios/**
 
         - id: ruta
-          uri: http://localhost:9103
+          uri: http://localhost:8086
           predicates:
             - Path=/api/rutas/**
 
         - id: factura
-          uri: http://localhost:9104
+          uri: http://localhost:8081
           predicates:
             - Path=/api/facturas/**
 
         - id: pago
-          uri: http://localhost:9105
+          uri: http://localhost:8083
           predicates:
             - Path=/api/pagos/**
+
+        # ─── Rutas de documentacion OpenAPI (agregacion de Swagger) ───────────
+        - id: usuario-docs
+          uri: http://localhost:9090
+          predicates:
+            - Path=/docs/usuario/v3/api-docs
+          filters:
+            - RewritePath=/docs/usuario/v3/api-docs, /v3/api-docs
+
+        - id: tienda-docs
+          uri: http://localhost:8889
+          predicates:
+            - Path=/docs/tienda/v3/api-docs
+          filters:
+            - RewritePath=/docs/tienda/v3/api-docs, /v3/api-docs
+
+        - id: soporte-docs
+          uri: http://localhost:9004
+          predicates:
+            - Path=/docs/soporte/v3/api-docs
+          filters:
+            - RewritePath=/docs/soporte/v3/api-docs, /v3/api-docs
+
+        - id: inventario-docs
+          uri: http://localhost:8090
+          predicates:
+            - Path=/docs/inventario/v3/api-docs
+          filters:
+            - RewritePath=/docs/inventario/v3/api-docs, /v3/api-docs
+
+        - id: catalogo-docs
+          uri: http://localhost:8085
+          predicates:
+            - Path=/docs/catalogo/v3/api-docs
+          filters:
+            - RewritePath=/docs/catalogo/v3/api-docs, /v3/api-docs
+
+        - id: backup-docs
+          uri: http://localhost:8088
+          predicates:
+            - Path=/docs/backup/v3/api-docs
+          filters:
+            - RewritePath=/docs/backup/v3/api-docs, /v3/api-docs
+
+        - id: monitor-docs
+          uri: http://localhost:8089
+          predicates:
+            - Path=/docs/monitor/v3/api-docs
+          filters:
+            - RewritePath=/docs/monitor/v3/api-docs, /v3/api-docs
+
+        - id: proveedor-docs
+          uri: http://localhost:8087
+          predicates:
+            - Path=/docs/proveedor/v3/api-docs
+          filters:
+            - RewritePath=/docs/proveedor/v3/api-docs, /v3/api-docs
+
+        - id: pedido-docs
+          uri: http://localhost:8084
+          predicates:
+            - Path=/docs/pedido/v3/api-docs
+          filters:
+            - RewritePath=/docs/pedido/v3/api-docs, /v3/api-docs
+
+        - id: envio-docs
+          uri: http://localhost:8082
+          predicates:
+            - Path=/docs/envio/v3/api-docs
+          filters:
+            - RewritePath=/docs/envio/v3/api-docs, /v3/api-docs
+
+        - id: ruta-docs
+          uri: http://localhost:8086
+          predicates:
+            - Path=/docs/ruta/v3/api-docs
+          filters:
+            - RewritePath=/docs/ruta/v3/api-docs, /v3/api-docs
+
+        - id: factura-docs
+          uri: http://localhost:8081
+          predicates:
+            - Path=/docs/factura/v3/api-docs
+          filters:
+            - RewritePath=/docs/factura/v3/api-docs, /v3/api-docs
+
+        - id: pago-docs
+          uri: http://localhost:8083
+          predicates:
+            - Path=/docs/pago/v3/api-docs
+          filters:
+            - RewritePath=/docs/pago/v3/api-docs, /v3/api-docs
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Usuario
+        url: /docs/usuario/v3/api-docs
+      - name: Tienda
+        url: /docs/tienda/v3/api-docs
+      - name: Soporte
+        url: /docs/soporte/v3/api-docs
+      - name: Inventario
+        url: /docs/inventario/v3/api-docs
+      - name: Catalogo
+        url: /docs/catalogo/v3/api-docs
+      - name: Backup
+        url: /docs/backup/v3/api-docs
+      - name: Monitor
+        url: /docs/monitor/v3/api-docs
+      - name: Proveedor
+        url: /docs/proveedor/v3/api-docs
+      - name: Pedido
+        url: /docs/pedido/v3/api-docs
+      - name: Envio
+        url: /docs/envio/v3/api-docs
+      - name: Ruta
+        url: /docs/ruta/v3/api-docs
+      - name: Factura
+        url: /docs/factura/v3/api-docs
+      - name: Pago
+        url: /docs/pago/v3/api-docs
