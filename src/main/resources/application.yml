@@ -28,7 +28,7 @@ spring:
         - id: soporte
           uri: http://localhost:9004
           predicates:
-            - Path=/api/v1/ticketSoporte/**,/api/v1/reclamo/**,/api/v1/evidencia/**,/api/v1/mensajeSoporte/**,/api/v1/personalSoporte/**,/api/v1/resolucionSoporte/**,/api/v1/solicitudDevolucion/**,/api/v1/historialTicket/**
+            - Path=/api/v1/ticketSoporte/**,/api/v1/reclamo/**,/api/v1/evidenciaAdjunta/**,/api/v1/mensajeSoporte/**,/api/v1/personalSoporte/**,/api/v1/resolucionSoporte/**,/api/v1/solicitudDevolucion/**,/api/v1/historialEstadoTicket/**
 
         # ─── Guillermo Toledo ────────────────────────────────────────────────
         - id: inventario
@@ -73,9 +73,9 @@ spring:
             - Path=/api/rutas/**
 
         - id: factura
-          uri: http://localhost:8081
+          uri: http://localhost:8888
           predicates:
-            - Path=/api/facturas/**
+            - Path=/api/v1/factura/**,/api/v1/detalleFactura/**
 
         - id: pago
           uri: http://localhost:8083
@@ -161,7 +161,7 @@ spring:
             - RewritePath=/docs/ruta/v3/api-docs, /v3/api-docs
 
         - id: factura-docs
-          uri: http://localhost:8081
+          uri: http://localhost:8888
           predicates:
             - Path=/docs/factura/v3/api-docs
           filters:
